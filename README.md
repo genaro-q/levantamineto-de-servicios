@@ -286,111 +286,32 @@ INTRODUCCIÓN
 ### INSTALACIÓN DEL SERVIDOR - DNS
 
 1. Actualice
+   1. Instalamos y configuramos DNS (BIND)
+     **Instalamos**
+   "sudo dns install bind bind-utils -y"
+     **Editar configuración principal**
+   Ingresamos en "sudo nano /etc/named.conf"
+   Cambiamos por:
+   listen-on port 53 { any; };
+   allow-query     { any; };
+    **Creamos zona directa**
+   "sudo nano /etc/named.rfc1912.zones"
+   Añadimos al final
+   zone "matute.local" IN {
+    type master;
+    file "matute.local.db";
+};
+
+   **Creamos archivo de zona**
+   Ingresamos en "sudo nano /var/named/matute.local.db"
+    **Damos permisos y arranque**
+   "sudo chown root:named /var/named/matute.local.db"
+   "sudo chmod 640 /var/named/matute.local.db"
+   "sudo systemctl enable --now named"
+    **Abrir puerto DNS (sin desactivar firewall)**
+   "sudo firewall-cmd --add-service-dns --permanent"
+   "dig www.matute.local
    
-`sudo yum update -y`
-
-2. Instale paquete bind
-
-  `sudo yum install -y bind bind-utils`
-
-3. Habilite DNS
-
-`sudo systemctl enable named`
-
-4. Configure firewall
-
-   `sduo firewall-cmd --permanent --xone=public --add-service=dns`
-
-5. Configure servidor DNS
-
-   `sudo nano /etc/named.conf`
-
-   <p align="center">
-   <img src="https://github.com/user-attachments/assets/e5e64f72-e7e1-4583-8e28-12644b0e8c3b"
- alt="Imagen de instalación" width="80%">
-      </p>
-
-6. Desactive las líenas "listen on" y "listen on v6" usando #
-
-   <p align="center">
-   <img src="https://github.com/user-attachments/assets/84f20caf-fd3b-446d-8db4-453e98f93c42" alt="Imagen de instalación" width="80%">
-      </p>
-
-7. Busque la líena "allow-query" y sustituye "localhost" por "any"
-
-   <p align="center">
-   <img src="https://github.com/user-attachments/assets/ecae5d1e-422b-478a-9471-71ab3c18d5e4" alt="Imagen de instalación" width="80%">
-      </p>
-
-8. Guarde los cambios y compruebe que no hay errores en la configuración
-
-   `sudo named-checkconf`
-
-   <p align="center">
-   <img src="https://github.com/user-attachments/assets/5836e06b-d657-4315-ab90-183a008d608f" alt="Imagen de instalación" width="80%">
-      </p>
-
-   si no se produce ninguna salida significa que todo esta correcto
-
-9. Inicie el servidor
-
-    `sudo systemctl start named`
-
-     <p align="center">
-   <img src="https://github.com/user-attachments/assets/565cfd6a-5b3e-4b0b-8192-b03f5dedbaee" alt="Imagen de instalación" width="80%">
-      </p>
-
-10. Verifique el estado
-    
-`sudo systemctl status named`
-    
-<p align="center">
-   <img src="https://github.com/user-attachments/assets/b62a011d-1d62-4f00-8a87-3880d8fa7822"
- alt="Imagen de instalación" width="80%">
-      </p>
-
-11. Creamos un archivo de configuración adicionales
-
-    `sudo nano /etc/NetworkManager/conf.d/10-dns.conf`
-
-<p align="center">
-   <img src="https://github.com/user-attachments/assets/8a8f8ae9-146f-4a17-be7f-f893efb62186"
-alt="Imagen de instalación" width="80%">
-      </p>
-
-12. Recargue la configuracion
-
-    `sudo systemctl reload NetworkManager`
-
-<p align="center">
-   <img src="https://github.com/user-attachments/assets/cde19e15-ed0e-48ac-949f-212aff12d525"
-alt="Imagen de instalación" width="80%">
-      </p>
-
-13. Edite el siguiente archivo
-
-    `sudo nano /etc/resolv/conf`
-
-<p align="center">
-   <img src="https://github.com/user-attachments/assets/3bc78086-a5b7-420b-aa62-291f2e89b33c"
-alt="Imagen de instalación" width="80%">
-      </p>
-
-14. En la primera líena de nameserver agregue un #, guarde y cierre
-
-<p align="center">
-   <img src="https://github.com/user-attachments/assets/dc1269f6-4118-47f1-8dbc-29a20a7b855a"
-alt="Imagen de instalación" width="80%">
-      </p>
-
-15. Treas gurdar los cambio y cerrar el archivo, ya puede probar la resolucion de nombres en cualquier maquina de red, con el comando "nslookup" y el domino de internet que prefiera
-
-`nslookup kernel.org`
-
-<p align="center">
-   <img src="https://github.com/user-attachments/assets/a064f8df-9d65-4efc-9963-4213c2e67ef0" alt="Imagen de instalación" width="80%">
-      </p>
-    
 ### INSTALACIÓN DEL SERVIDOR - ISSABEL
 1. Cree una maquina cirtual con la iso previamente descara de su pagina oficial
 
