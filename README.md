@@ -64,18 +64,18 @@ INTRODUCCIÓN
 </p>
 
 
-3. Continuamos agregando el puerto “54321” a la configuración del nano
+3. Continuamos agregando el puerto “2222” a la configuración del nano
 
-`PORT 54321`
+`PORT 2222`
 
 <p align="center">
    <img src="https://github.com/user-attachments/assets/d39b6840-63a5-4353-b1f8-09cf82e780d8" alt="Imagen de instalación" width="80%">
 </p>
 
 
-4. Para terminar agregamos el puerto “54321” a la configuración del firewall para evitar problemas de conectividad con el funcionamiento del servicio
+4. Para terminar agregamos el puerto “2222” a la configuración del firewall para evitar problemas de conectividad con el funcionamiento del servicio
 
-`sudo firewall-cmd --permanent --add-port=54321/tcp`
+`sudo firewall-cmd --permanent --add-port=2222/tcp`
 
 `sudo firewall-cmd --reload`
 
@@ -95,7 +95,7 @@ INTRODUCCIÓN
     
 6. Conectamos el servicio
 
-`ssh localhost -p 54321`
+`ssh localhost -p 2222`
 
    <p align="center">
    <img src="https://github.com/user-attachments/assets/96a17632-e6e8-4b8e-9397-48c2c9ed4bf7" alt="Imagen de instalación" width="80%">
@@ -191,12 +191,30 @@ INTRODUCCIÓN
 </p>
 
 
-2. 
+2. Configurar postfix
+    Utilizamos `sudo nano /etc/postfix/main.cf`
 
    `sudo systemctl enable postfix`
 
    `sudo systemctl start postfix`
+3. Configurar Dovevecot (IMAP)
+    `sudo nano /etc/devecot/devecot.conf`
+    agregamos la palabra "imap"
+4. Creamos usuarios de correo
+   `sudo useradd usuario1`
+   `sudo passwd usuario1`
+   `sudo useradd usuario2`
+   `sudo passwd usuario2`
 
+5. Iniciamos servicios
+     `sudo systemctl enable --now postfix`
+     `sudo systemctl enable --now devecot`
+6. Abrimos los puertos de correo
+     `sudo firewall-cmd --add-service=smtp --permanent`
+     `sudo firewall-cmd --add-service=imap --permanent`
+7. Reiniciamos el firewall
+     `sudo firewall-cmd --reload`
+   
 <p align="center">
    <img src="https://github.com/user-attachments/assets/97180813-f0c1-4300-af88-7ad805b6c8d5" alt="Imagen de instalación" width="80%">
    </p>
@@ -264,79 +282,6 @@ INTRODUCCIÓN
       </p>
 
 
-### INSTALACIÓN DEL SERVIDOR - PLEX
-1. Descargue el plex, descargar el que esta subrayado
-
-   <p align="center">
-    <img src="https://github.com/user-attachments/assets/77a10fc6-f27b-4f2a-bd30-77c0c2e9fc39" alt="Imagen de instalación" width="80%">
-    </p>
-
-2. Abra la carpeta descargada e instalamos
-
-   <p align="center">
-     <img src="https://github.com/user-attachments/assets/dd2f660f-2a1a-4db5-9b94-655d564c90d5" alt="Imagen de instalación" width="80%">
-</p>
-
-<p align="center">
-<img src="https://github.com/user-attachments/assets/8aff06dc-709f-4ab1-9b58-ff5fb6bcf148" alt="Imagen de instalación" width="80%">
-</p>
-
-3. Active e inicie plex
-
-   `sudo systemctl enable plexmediaserver.service`
-
-   `sudo systemctl start plexmediaserver.service`
-
-   <p align="center">
-   <img src="https://github.com/user-attachments/assets/74811c50-78b4-40c5-8317-f615fcecf96d" alt="Imagen de instalación" width="80%">
-   </p>
-   
-4. Configure el firewall añadiendo el puerto "32400"
-
-   `sudo firewall-cmd --add-port=32400/tcp --permanent`
-
-   `sudo firewall-cmd -reload`
-
-<p align="center">
-<img src="https://github.com/user-attachments/assets/40a37ad1-0c3b-47c0-a4f6-409b4eace939" alt="Imagen de instalación" width="80%">
-</p>
-
-5. Acceda a plex desde el navegador usando "https://<ip-servidor-centos>:32400/web" (si no funciona con la ip del servidor) pruebe con esto "https://localhost:32400/web"
-
-   <p align="center">
-   <img src="https://github.com/user-attachments/assets/e0883ae8-c91f-4b83-8d29-436da4e1a0a3" alt="Imagen de instalación" width="80%">
-   </p>
-
-6. Configure plex, cree una cuenta
-
-   <p align="center">
-   <img src="https://github.com/user-attachments/assets/f0ae263d-c91e-41da-8c6b-8706e42fd936" alt="Imagen de instalación" width="80%">
-      </p>
-
-7. Una vez creada la cuenta proceda a darle un nombre a la empresa
-
-   <p align="center">
-   <img src="https://github.com/user-attachments/assets/fb3c3ff5-581e-4a41-a80c-1b69ac40f2ba" alt="Imagen de instalación" width="80%">
-      </p>
-
-8. Posteriormente de click en el nombre de la emprea para poder agregar bibliotecas
-
-<p align="center">
-   <img src="https://github.com/user-attachments/assets/d83ddc72-bae5-4fb8-aab8-10c0d92e7018"
- alt="Imagen de instalación" width="80%">
-      </p>
-
-9. Añada a la biblioteca
-
-    <p align="center">
-   <img src="https://github.com/user-attachments/assets/e990b19a-9353-4e52-ad46-f6e679dcdb80" alt="Imagen de instalación" width="80%">
-      </p>
-
-10. De un nombre a la carpeta y siguiente
-
-  <p align="center">
-   <img src="https://github.com/user-attachments/assets/52ae1835-e673-428f-9ba5-226715cd8ccb" alt="Imagen de instalación" width="80%">
-      </p>
 
 ### INSTALACIÓN DEL SERVIDOR - DNS
 
