@@ -17,85 +17,31 @@ INTRODUCCIÓN
 
 
 ### LEVANTAMIENTO DE SERVIDORES BÀSICOS
-1. Abrir el software de virtualizacion: Inicie VirtualBox y haga click en "Nueva Maquina Virtual"
+1. Instalamos y configuramos DNS (BIND)
+     **Instalamos**
+   "sudo dns install bind bind-utils -y"
+     **Editar configuración principal**
+   Ingresamos en "sudo nano /etc/named.conf"
+   Cambiamos por:
+   listen-on port 53 { any; };
+   allow-query     { any; };
+    **Creamos zona directa**
+   "sudo nano /etc/named.rfc1912.zones"
+   Añadimos al final
+   zone "matute.local" IN {
+    type master;
+    file "matute.local.db";
+};
 
-     **Asignamos Recursos**
-      
-     **Nombre:** Asignamos un nombre descriptivo, como "Servidor Centos" en este caso
-
-     **Tipo:** Selccionamos "Linux"
-
-     **Version:** Elegimos "Red Hat (64-bit)"
-
-     **Memoria RAM:** Asignamos al menos 2GB (2048 MB)
-
-     **Disco Duro:** Crea un disco virtual de al menos 20GB
-
-     Montar la Imagen ISO: En la configuracion de la maquina virtual, seleccionamos la imagen ISO de CentOS descargada 
-     previamente como medio de arranque
-
-   <p align="center">
-   <img src="https://github.com/user-attachments/assets/da30f6e1-60d7-45b0-aca5-7a9caa5ae063" alt="Imagen de instalación" width="80%">
-</p>
-
-### INSTALACIÓN DE SISTEMA OPERATIVO - CentOS 9 Stream
-1. **Proceso de Instalación de CentOS**
-   
-      Una vez configurada la máquina virtual, iniciamos y seguimos estos pasos:
-   
-      Iniciar la Instalación:
-      1. **Al arrancar la máquina virtual, aparecerá el menú de instalación de CentOS. Seleccionamos "Install CentOS " y 
-      presionamos Enter.**
-
-      2. **Selección de Idioma:**
-      Elegimos el idioma preferido para la instalación y continuamos.
-
-<p align="center">
-   <img src="https://github.com/user-attachments/assets/571c1337-5e7a-4e4b-b44f-56620b45729d" alt="Imagen de instalación" width="80%">
-</p>
-
-  4. **Configuración de la Fecha y Hora:**
-  Seleccionamos la zona horaria correspondiente.
-
-  5. **Selección del Software:**
-  Elegimos el entorno de software que deseamos instalar. Para un servidor básico, seleccionamos "Minimal Install". En 
-  este caso necesitamos una interfaz gráfica por lo que elegimos "Server with GUI".
-
-<p align="center">
-   <img src="https://github.com/user-attachments/assets/acabcfbe-cf6b-4eb4-af98-6da15c4388b5" alt="Imagen de instalación" width="80%">
-</p>
-
-<p align="center">
-   <img src="https://github.com/user-attachments/assets/8b32fff2-d910-4413-bd7e-0236a696cc3d" alt="Imagen de instalación" width="80%">
-</p>
-
-  6. **Configuración del Disco:**
-  Seleccionamos el disco virtual creado y hacemos click en "Done". CentOS configurará automáticamente las particiones.
-
-  7. **Configuración de Red:**
-  Activamos la conexión de red para que la máquina virtual tenga acceso a Internet.
-
-  8. **Creación de Usuario:**
-  Establece una contraseña para el usuario root y crea un usuario adicional para uso diario.
-
-<p align="center">
-   <img src="https://github.com/user-attachments/assets/9267e8d5-f595-4d24-a801-e411f5f445a0" alt="Imagen de instalación" width="80%">
-</p>
-
-  9. **Iniciar la Instalación:**
-  Haz clic en "Begin Installation" y espera a que el proceso termine. Esto 
-  puede tardar varios minutos.
-
-  10. **Post-Instalación**
-  Una vez completada la instalación, reiniciamos la máquina virtual y 
-  seguimos estos pasos:
-  Iniciar Sesión: Ingresamos con el usuario creado durante la instalación.
-  Actualizar el Sistema: Ejecutamos el comando sudo yum update para 
-  asegurarnos de que el sistema esté actualizado.
-
-<p align="center">
-   <img src="https://github.com/user-attachments/assets/eaa34836-5abf-4276-a891-ee667fc8a1e2" alt="Imagen de instalación" width="80%">
-</p>
+   **Creamos archivo de zona**
+   Ingresamos en "sudo nano /var/named/matute.local.db"
+    **Damos permisos y arranque**
+   "sudo chown root:named /var/named/matute.local.db"
+   "sudo chmod 640 /var/named/matute.local.db"
+   "sudo systemctl enable --now named"
+    **Abrir puerto DNS (sin desactivar firewall)**
+   "sudo firewall-cmd --add-service-dns --permanent"
+   "dig www.matute.local
 
 ### INSTALACIÓN DEL SERVIDOR - SSH
 1. Empezamos ejecutando el comando “sudo dnf install -y openssh-server” para instalar el servicio de ssh.
@@ -164,15 +110,27 @@ INTRODUCCIÓN
 
 
 
-### INSTALACIÓN DEL SERVIDOR - SAMBA
-1. Para que pueda empezar con la instalacion de samba hay que hacer un update.
+### INSTALACIÓN DEL SERVIDOR - APACHE
+1. Para que pueda empezar con la instalacion de apache hay que hacer un update.
 
    `sudo dnf update`
 
-2. Utilice el siguiente comando para instalar samba
+2. Utilice el siguiente comando para instalar apache
 
-   `sudo dnf install samba samaba-cammon samba-client`
+   "sudo dnf install httpd -y"
+   **Creamos un Virtualhost**
 
+   **Creamos un sitio web**
+   "sudo mkdir /var/www/matute
+   **Le damos permisos y arranque**
+   "sudo chown -R apache:apache /var/www/matute"
+   "sudo systemctl enable httpd"
+   **Abrimos puerto web**
+   "sudo firewall-cmd --add-service=http --permanent
+   **Prueba en la web**
+
+   
+   
 <p align="center">
 <img src="https://github.com/user-attachments/assets/0067acde-1200-4b4e-b272-41cd39c200cb" alt="Imagen de instalación" width="80%">
 </p>
@@ -226,14 +184,14 @@ INTRODUCCIÓN
 
 1. Proceda a instalar el paquete de postfix
 
-   `sudo dnf install postfix -y`
+   `sudo dnf install postfix devecot -y`
 
 <p align="center">
    <img src="https://github.com/user-attachments/assets/2da7e2b7-4123-4366-a62e-6380704f90b5" alt="Imagen de instalación" width="80%">
 </p>
 
 
-2. Habilite como servicio predeterminado
+2. 
 
    `sudo systemctl enable postfix`
 
