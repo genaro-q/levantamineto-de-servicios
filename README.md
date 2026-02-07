@@ -17,31 +17,7 @@ INTRODUCCIÓN
 
 
 ### LEVANTAMIENTO DE SERVIDORES BÀSICOS
-1. Instalamos y configuramos DNS (BIND)
-     **Instalamos**
-   "sudo dns install bind bind-utils -y"
-     **Editar configuración principal**
-   Ingresamos en "sudo nano /etc/named.conf"
-   Cambiamos por:
-   listen-on port 53 { any; };
-   allow-query     { any; };
-    **Creamos zona directa**
-   "sudo nano /etc/named.rfc1912.zones"
-   Añadimos al final
-   zone "matute.local" IN {
-    type master;
-    file "matute.local.db";
-};
-
-   **Creamos archivo de zona**
-   Ingresamos en "sudo nano /var/named/matute.local.db"
-    **Damos permisos y arranque**
-   "sudo chown root:named /var/named/matute.local.db"
-   "sudo chmod 640 /var/named/matute.local.db"
-   "sudo systemctl enable --now named"
-    **Abrir puerto DNS (sin desactivar firewall)**
-   "sudo firewall-cmd --add-service-dns --permanent"
-   "dig www.matute.local
+En este github levantaremos algunos servidores, **De correo y web** A continuacion se mostrarà todos los comandos para realizar todos estos servidores
 
 ### INSTALACIÓN DEL SERVIDOR - SSH
 1. Empezamos ejecutando el comando “sudo dnf install -y openssh-server” para instalar el servicio de ssh.
@@ -82,26 +58,26 @@ INTRODUCCIÓN
 2. Utilice el siguiente comando para instalar apache
 
    "sudo dnf install httpd -y"
-   **Creamos un Virtualhost**
+3. Creamos un Virtualhost
 
-   **Creamos un sitio web**
+4. Creamos un sitio web
    "sudo mkdir /var/www/matute
-   **Le damos permisos y arranque**
+5. Le damos permisos y arranque**
    "sudo chown -R apache:apache /var/www/matute"
    "sudo systemctl enable httpd"
-   **Abrimos puerto web**
+6. Abrimos puerto web**
    "sudo firewall-cmd --add-service=http --permanent
-   **Prueba en la web**
+7. Prueba en la web**
 
-3. Cree un directorio usando el siguiente comando
+8. Cree un directorio usando el siguiente comando
 
    `mkdr ~/CARPETA`
    
-5. Abra el archivo nano de samba y agregamos lo siguiente al final del archivo
+9. Abra el archivo nano de samba y agregamos lo siguiente al final del archivo
    
 `sudo nano /etc/samba/smb.conf`
 
-5. Configure los permisos de firewall para que no haya errores al abrir
+10. Configure los permisos de firewall para que no haya errores al abrir
 
    `sudo systemctl stop firewalld`
 `sestatus`
@@ -112,15 +88,11 @@ INTRODUCCIÓN
 
 `sudo systemctl restart smb`
 
-6. Asigne contraseña al usuario de samba con los siguientes comandos
+11. Asigne contraseña al usuario de samba con los siguientes comandos
 
 `sudo smbpasswd -a USUARIO` Luego de este comando asigne la contraseña
 
 `sudo smbpasswd -e USUARIO`
-
-
-
-
 
 
 ### INSTALACIÓN DEL SERVIDOR - POSTFIX
@@ -153,11 +125,11 @@ INTRODUCCIÓN
 7. Reiniciamos el firewall
      `sudo firewall-cmd --reload`
    
-3. Empiece con la configración
+8. Empiece con la configración
 
       `sudo nano /etc/postfix/main.cf`
       
-4. Configure el firewall
+9. Configure el firewall
    
 `sudo firewall-cmd --permanent --add-service=smtp`
 
@@ -165,19 +137,19 @@ INTRODUCCIÓN
 
 `sudo firewall-cmd --reload`
 
-5. Reinicie Postfix
+10. Reinicie Postfix
 
    `sudo systemctl restart postfix`
 
-6. Verifique el estado
+11. Verifique el estado
    
    `sudo systemctl status postfix.service`
    
-7. Pruebe el servicio (Instalar paquete si es necesario)
+12. Pruebe el servicio (Instalar paquete si es necesario)
 
    `echo "Prueba de Postfix en CentOS 9" | mail -s "Correo de prueba" tuemail@dominio.com`
 
-8. Revise cola de correos
+13. Revise cola de correos
 
       `sudo mailq`
 
@@ -188,12 +160,12 @@ INTRODUCCIÓN
    1. Instalamos y configuramos DNS (BIND)
      **Instalamos**
    "sudo dns install bind bind-utils -y"
-     **Editar configuración principal**
+   2. Editar configuración principal
    Ingresamos en "sudo nano /etc/named.conf"
    Cambiamos por:
    listen-on port 53 { any; };
    allow-query     { any; };
-    **Creamos zona directa**
+   3. Creamos zona directa
    "sudo nano /etc/named.rfc1912.zones"
    Añadimos al final
    zone "matute.local" IN {
@@ -201,13 +173,13 @@ INTRODUCCIÓN
     file "matute.local.db";
 };
 
-   **Creamos archivo de zona**
+   4. Creamos archivo de zona
    Ingresamos en "sudo nano /var/named/matute.local.db"
-    **Damos permisos y arranque**
+   5. Damos permisos y arranque
    "sudo chown root:named /var/named/matute.local.db"
    "sudo chmod 640 /var/named/matute.local.db"
    "sudo systemctl enable --now named"
-    **Abrir puerto DNS (sin desactivar firewall)**
+   6. Abrir puerto DNS (sin desactivar firewall)
    "sudo firewall-cmd --add-service-dns --permanent"
    "dig www.matute.local
    
