@@ -28,13 +28,17 @@ En este github presentaremos nuestros servicios, **Correo, servidores web, multi
 
 WordPress es el sistema de gestión de contenidos (CMS) más popular del mundo, utilizado para crear y administrar sitios web, blogs o tiendas online de forma sencilla sin necesidad de programar. Es una plataforma de código abierto (open source) gratuita, flexible y basada en PHP y MySQL, que impulsa más del 30% de los sitios web en internet. 
 
+Sirve para crear, administrar y diseñar sitios web —desde blogs personales hasta tiendas online— de forma sencilla y sin necesidad de saber programar. Permite publicar contenidos, personalizar la apariencia con plantillas (temas) y añadir funcionalidades mediante plugins. 
+
 ### SERVIDOR - POSTFIX
 
 1. AQUI VEREMOS EL FUNCIONAMIENTO DE NUESTRO SERVIDOR DE CORREOS
-
+   
+![WhatsApp Image 2026-02-10 at 10 10 27 AM](https://github.com/user-attachments/assets/38fb7c2c-814d-43aa-b81b-4d34f3c07e2e)
 
 Postfix es un popular agente de transferencia de correo (MTA) de código abierto y gratuito, diseñado para enrutar y entregar correos electrónicos en sistemas Linux/UNIX. Sirve como una alternativa segura, rápida y fácil de administrar a Sendmail, permitiendo el envío y recepción de mensajes, soportando protocolos como TLS y bases de datos. 
 
+Su función principal es enviar, recibir y enrutar mensajes de correo electrónico, funcionando como una alternativa segura al clásico Sendmail en sistemas Unix/Linux. 
 
 ### SERVIDOR - PLEX
 
@@ -44,11 +48,17 @@ AQUI PODREMOS VER NUESTRO SERVICIO PLEX FUNCIONANDO DE MANERA PERFECTA
 
 Plex es una plataforma de software que actúa como tu propio servidor multimedia privado, organizando películas, series, música y fotos almacenadas en tu computadora o NAS para transmitirlas por streaming a cualquier dispositivo (Smart TV, móvil, tablet). Funciona creando una biblioteca estilo Netflix con carátulas y descripciones, permitiendo ver tu contenido personal dentro y fuera de casa. 
 
+Plex sirve para organizar, transmitir y visualizar tu propia colección de películas, series, música y fotos en cualquier dispositivo (TV, móvil, PC) desde un servidor central, funcionando como un Netflix personal
+
 ### INSTALACIÓN DEL SERVIDOR - VOIP
 
 PERFECTO FUNCIONAMIENTO DE NUESTRO SERVIDOR DE VOIP
 
 <img width="547" height="737" alt="voip" src="https://github.com/user-attachments/assets/0fe0c1f9-2b9b-4d4c-847f-2556eeb80051" />
+
+VoIP (Voz sobre Protocolo de Internet) es una tecnología que permite realizar llamadas de voz a través de una conexión a internet de banda ancha en lugar de utilizar las líneas telefónicas analógicas convencionales. 
+
+sirve para realizar llamadas de voz y video a través de Internet en lugar de líneas telefónicas tradicionales. 
 
 ### INSTALACIÓN DEL SERVIDOR - ODOO
 
@@ -60,5 +70,6 @@ VEAMOS EL FUNCIONAMIENTO DE ODOO
 
 Odoo es un sistema de gestión empresarial (ERP) de código abierto y modular que agrupa en una sola plataforma aplicaciones integradas para gestionar ventas, CRM, contabilidad, inventario, fabricación y RRHH. Su estructura flexible permite escalar el negocio, adaptándose a pymes y grandes empresas con opciones en la nube (SaaS) o local. 
 
+sirve para automatizar, organizar y unificar todas las áreas de una empresa en una sola plataforma
 
    
