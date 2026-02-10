@@ -17,40 +17,10 @@ INTRODUCCIÓN
 
 
 ### LEVANTAMIENTO DE SERVIDORES BÀSICOS
-En este github levantaremos algunos servidores, **De correo y web** A continuacion se mostrarà todos los comandos para realizar todos estos servidores
+En este github presentaremos nuestros servicios, **Correo, servidores web, multimedia, voz, dominio, conexion remota** A continuacion se mostrarà todos los servidores funcionando
 
-### INSTALACIÓN DEL SERVIDOR - SSH
-1. Empezamos ejecutando el comando “sudo dnf install -y openssh-server” para instalar el servicio de ssh.
-   
-`sudo dnf install -y openssh-server`
 
-2. Seguido de la instalación agregamos el servicio de ssh al firewall.
-
-`sudo firewall-cmd --permanent --add-service=ssh`
-
-`sudo firewall-cmd --reload`
-   
-3. Continuamos agregando el puerto “2222” a la configuración del nano
-
-`PORT 2222`
-
-4. Para terminar agregamos el puerto “2222” a la configuración del firewall para evitar problemas de conectividad con el funcionamiento del servicio
-
-`sudo firewall-cmd --permanent --add-port=2222/tcp`
-
-`sudo firewall-cmd --reload`
-
-5. Reiniciamos el servicio ssh para actualizar los cambios y que empiece su funcionamiento
-
-`sudo systemctl restart sshd`
-    
-6. Conectamos el servicio
-
-`ssh localhost -p 2222`
-
- 7. Conexión remota con mobaxterm
-
-### INSTALACIÓN DEL SERVIDOR - APACHE
+### SERVIDOR - WORDPRESS
 1. Para que pueda empezar con la instalacion de apache hay que hacer un update.
 
    `sudo dnf update`
