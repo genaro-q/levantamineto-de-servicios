@@ -16,140 +16,49 @@
 INTRODUCCIÓN
 
 
-### LEVANTAMIENTO DE SERVIDORES BÀSICOS
+### LEVANTAMIENTO DE SERVIDORES BÁSICOS
 En este github presentaremos nuestros servicios, **Correo, servidores web, multimedia, voz, dominio, conexion remota** A continuacion se mostrarà todos los servidores funcionando
 
 
 ### SERVIDOR - WORDPRESS
-1. Para que pueda empezar con la instalacion de apache hay que hacer un update.
 
-   `sudo dnf update`
+ En este apartado podemos ver el perfecto funcionamiento de nuestro servico web wordpress 
 
-2. Utilice el siguiente comando para instalar apache
+<img width="705" height="417" alt="wordpress" src="https://github.com/user-attachments/assets/adaf5ba7-973e-4b4a-9036-bbff9c0891f0" />
 
-   "sudo dnf install httpd -y"
-3. Creamos un Virtualhost
+WordPress es el sistema de gestión de contenidos (CMS) más popular del mundo, utilizado para crear y administrar sitios web, blogs o tiendas online de forma sencilla sin necesidad de programar. Es una plataforma de código abierto (open source) gratuita, flexible y basada en PHP y MySQL, que impulsa más del 30% de los sitios web en internet. 
 
-4. Creamos un sitio web
-   "sudo mkdir /var/www/matute
-5. Le damos permisos y arranque**
-   "sudo chown -R apache:apache /var/www/matute"
-   "sudo systemctl enable httpd"
-6. Abrimos puerto web**
-   "sudo firewall-cmd --add-service=http --permanent
-7. Prueba en la web**
+### SERVIDOR - POSTFIX
 
-8. Cree un directorio usando el siguiente comando
-
-   `mkdr ~/CARPETA`
-   
-9. Abra el archivo nano de samba y agregamos lo siguiente al final del archivo
-   
-`sudo nano /etc/samba/smb.conf`
-
-10. Configure los permisos de firewall para que no haya errores al abrir
-
-   `sudo systemctl stop firewalld`
-`sestatus`
+1. AQUI VEREMOS EL FUNCIONAMIENTO DE NUESTRO SERVIDOR DE CORREOS
 
 
-
-`sudo restorecon -Rv “/home/usuario/DIRECTORIO"`
-
-`sudo systemctl restart smb`
-
-11. Asigne contraseña al usuario de samba con los siguientes comandos
-
-`sudo smbpasswd -a USUARIO` Luego de este comando asigne la contraseña
-
-`sudo smbpasswd -e USUARIO`
+Postfix es un popular agente de transferencia de correo (MTA) de código abierto y gratuito, diseñado para enrutar y entregar correos electrónicos en sistemas Linux/UNIX. Sirve como una alternativa segura, rápida y fácil de administrar a Sendmail, permitiendo el envío y recepción de mensajes, soportando protocolos como TLS y bases de datos. 
 
 
-### INSTALACIÓN DEL SERVIDOR - POSTFIX
+### SERVIDOR - PLEX
 
-1. Proceda a instalar el paquete de postfix
+AQUI PODREMOS VER NUESTRO SERVICIO PLEX FUNCIONANDO DE MANERA PERFECTA
 
-   `sudo dnf install postfix devecot -y`
+1.<img width="703" height="435" alt="plex" src="https://github.com/user-attachments/assets/6baa1604-66be-4bf5-86cb-e5251288d347" />
 
-2. Configurar postfix
-    Utilizamos `sudo nano /etc/postfix/main.cf`
+Plex es una plataforma de software que actúa como tu propio servidor multimedia privado, organizando películas, series, música y fotos almacenadas en tu computadora o NAS para transmitirlas por streaming a cualquier dispositivo (Smart TV, móvil, tablet). Funciona creando una biblioteca estilo Netflix con carátulas y descripciones, permitiendo ver tu contenido personal dentro y fuera de casa. 
 
-   `sudo systemctl enable postfix`
+### INSTALACIÓN DEL SERVIDOR - VOIP
 
-   `sudo systemctl start postfix`
-3. Configurar Dovevecot (IMAP)
-    `sudo nano /etc/devecot/devecot.conf`
-    agregamos la palabra "imap"
-4. Creamos usuarios de correo
-   `sudo useradd usuario1`
-   `sudo passwd usuario1`
-   `sudo useradd usuario2`
-   `sudo passwd usuario2`
+PERFECTO FUNCIONAMIENTO DE NUESTRO SERVIDOR DE VOIP
 
-5. Iniciamos servicios
-     `sudo systemctl enable --now postfix`
-     `sudo systemctl enable --now devecot`
-6. Abrimos los puertos de correo
-     `sudo firewall-cmd --add-service=smtp --permanent`
-     `sudo firewall-cmd --add-service=imap --permanent`
-7. Reiniciamos el firewall
-     `sudo firewall-cmd --reload`
-   
-8. Empiece con la configración
+<img width="547" height="737" alt="voip" src="https://github.com/user-attachments/assets/0fe0c1f9-2b9b-4d4c-847f-2556eeb80051" />
 
-      `sudo nano /etc/postfix/main.cf`
-      
-9. Configure el firewall
-   
-`sudo firewall-cmd --permanent --add-service=smtp`
+### INSTALACIÓN DEL SERVIDOR - ODOO
 
-`sudo firewall-cmd --permanent --add-service=smtps`
+VEAMOS EL FUNCIONAMIENTO DE ODOO
 
-`sudo firewall-cmd --reload`
+<img width="697" height="443" alt="odoo" src="https://github.com/user-attachments/assets/0a6382fe-3351-408c-bce2-d2406542ed40" />
 
-10. Reinicie Postfix
+<img width="708" height="386" alt="odoo 2" src="https://github.com/user-attachments/assets/ee043229-07d8-4411-8875-127c8ecf7481" />
 
-   `sudo systemctl restart postfix`
-
-11. Verifique el estado
-   
-   `sudo systemctl status postfix.service`
-   
-12. Pruebe el servicio (Instalar paquete si es necesario)
-
-   `echo "Prueba de Postfix en CentOS 9" | mail -s "Correo de prueba" tuemail@dominio.com`
-
-13. Revise cola de correos
-
-      `sudo mailq`
+Odoo es un sistema de gestión empresarial (ERP) de código abierto y modular que agrupa en una sola plataforma aplicaciones integradas para gestionar ventas, CRM, contabilidad, inventario, fabricación y RRHH. Su estructura flexible permite escalar el negocio, adaptándose a pymes y grandes empresas con opciones en la nube (SaaS) o local. 
 
 
-### INSTALACIÓN DEL SERVIDOR - DNS
-
-1. Actualice
-   1. Instalamos y configuramos DNS (BIND)
-     **Instalamos**
-   "sudo dns install bind bind-utils -y"
-   2. Editar configuración principal
-   Ingresamos en "sudo nano /etc/named.conf"
-   Cambiamos por:
-   listen-on port 53 { any; };
-   allow-query     { any; };
-   3. Creamos zona directa
-   "sudo nano /etc/named.rfc1912.zones"
-   Añadimos al final
-   zone "matute.local" IN {
-    type master;
-    file "matute.local.db";
-};
-
-   4. Creamos archivo de zona
-   Ingresamos en "sudo nano /var/named/matute.local.db"
-   5. Damos permisos y arranque
-   "sudo chown root:named /var/named/matute.local.db"
-   "sudo chmod 640 /var/named/matute.local.db"
-   "sudo systemctl enable --now named"
-   6. Abrir puerto DNS (sin desactivar firewall)
-   "sudo firewall-cmd --add-service-dns --permanent"
-   "dig www.matute.local
    
